@@ -1,0 +1,37 @@
+name: app1
+description: Example SaaS application 1
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  # Local packages
+  core:
+    path: ../../packages/core
+  ui_kit:
+    path: ../../packages/ui_kit
+  auth_module:
+    path: ../../packages/modules/auth_module
+  dashboard_module:
+    path: ../../packages/modules/dashboard_module
+  user_module:
+    path: ../../packages/modules/user_module
+  
+  # State management
+  provider: ^6.1.1
+  
+  # Icons
+  cupertino_icons: ^1.0.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true

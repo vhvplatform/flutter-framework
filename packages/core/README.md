@@ -14,6 +14,7 @@ The core package provides fundamental functionality for Flutter SaaS application
 - **Logger**: Enhanced logging with context and levels
 - **Validators**: Comprehensive form validation utilities
 - **i18n**: Internationalization support
+- **Performance**: Monitoring, debouncing, memory management, image caching, lazy loading
 
 ## Installation
 

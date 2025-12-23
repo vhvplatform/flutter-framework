@@ -31,3 +31,10 @@ export 'utils/validators.dart';
 
 // Internationalization
 export 'i18n/app_localizations.dart';
+
+// Performance
+export 'performance/performance_monitor.dart';
+export 'performance/debouncer.dart';
+export 'performance/memory_manager.dart';
+export 'performance/image_cache.dart';
+export 'performance/lazy_loading.dart';

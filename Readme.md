@@ -20,6 +20,7 @@ A complete Flutter framework for building multiple SaaS applications with a modu
 - **Enhanced Logger**: Structured logging with context
 - **i18n Support**: Built-in internationalization
 - **CI/CD**: GitHub Actions workflow for automated testing and building
+- **Performance Optimized**: Lazy loading, image caching, debouncing, memory management
 
 ## 📦 Architecture
 
@@ -515,6 +516,7 @@ This project is licensed under the MIT License.
 
 - **[SETUP.md](SETUP.md)** - Complete setup and installation guide
 - **[FEATURES.md](FEATURES.md)** - New features and enhancements documentation
+- **[PERFORMANCE.md](PERFORMANCE.md)** - Performance optimizations guide
 - **[IMPLEMENTATION_SUMMARY.md](IMPLEMENTATION_SUMMARY.md)** - Detailed implementation summary
 
 ## 🆘 Support

@@ -15,6 +15,7 @@ The core package provides fundamental functionality for Flutter SaaS application
 - **Validators**: Comprehensive form validation utilities
 - **i18n**: Internationalization support
 - **Performance**: Monitoring, debouncing, memory management, image caching, lazy loading
+- **Advanced Performance**: Widget optimization, isolates, frame monitoring, startup tracking, network batching, advanced caching
 
 ## Installation
 

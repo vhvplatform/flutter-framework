@@ -24,3 +24,10 @@ export 'modules/module.dart';
 
 // Navigation
 export 'navigation/router.dart';
+
+// Utilities
+export 'utils/app_logger.dart';
+export 'utils/validators.dart';
+
+// Internationalization
+export 'i18n/app_localizations.dart';

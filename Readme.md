@@ -15,6 +15,11 @@ A complete Flutter framework for building multiple SaaS applications with a modu
 - **Navigation**: Declarative routing with go_router
 - **Secure Storage**: Encrypted storage for sensitive data
 - **Type-safe**: Full null safety and strong typing
+- **Settings & Profile**: Complete user settings and profile management
+- **Form Validators**: Comprehensive validation utilities
+- **Enhanced Logger**: Structured logging with context
+- **i18n Support**: Built-in internationalization
+- **CI/CD**: GitHub Actions workflow for automated testing and building
 
 ## 📦 Architecture
 
@@ -29,7 +34,9 @@ saas-framework-flutter/
 │   │   │   ├── di/             # Dependency injection
 │   │   │   ├── modules/        # Module system
 │   │   │   ├── navigation/     # Routing
-│   │   │   └── storage/        # Secure & local storage
+│   │   │   ├── storage/        # Secure & local storage
+│   │   │   ├── utils/          # Logger & validators
+│   │   │   └── i18n/           # Internationalization
 │   │   └── README.md
 │   ├── ui_kit/                  # Shared UI components
 │   │   ├── lib/
@@ -39,7 +46,8 @@ saas-framework-flutter/
 │   └── modules/                 # Feature modules
 │       ├── auth_module/        # Authentication screens
 │       ├── dashboard_module/   # Dashboard & home
-│       └── user_module/        # User management
+│       ├── user_module/        # User management
+│       └── settings_module/    # Settings & profile
 ├── apps/
 │   ├── app1/                   # Example application 1
 │   └── app2/                   # Example application 2
@@ -502,6 +510,12 @@ flutter build web
 ## 📄 License
 
 This project is licensed under the MIT License.
+
+## 📚 Documentation
+
+- **[SETUP.md](SETUP.md)** - Complete setup and installation guide
+- **[FEATURES.md](FEATURES.md)** - New features and enhancements documentation
+- **[IMPLEMENTATION_SUMMARY.md](IMPLEMENTATION_SUMMARY.md)** - Detailed implementation summary
 
 ## 🆘 Support
 

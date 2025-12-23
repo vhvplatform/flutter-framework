@@ -11,6 +11,9 @@ The core package provides fundamental functionality for Flutter SaaS application
 - **Navigation**: Route management
 - **Storage**: Secure and local storage wrappers
 - **Configuration**: Environment-based app configuration
+- **Logger**: Enhanced logging with context and levels
+- **Validators**: Comprehensive form validation utilities
+- **i18n**: Internationalization support
 
 ## Installation
 

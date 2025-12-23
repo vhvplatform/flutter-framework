@@ -1,0 +1,25 @@
+name: auth_module
+description: Authentication module for Flutter SaaS applications
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+  flutter: ">=3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  core:
+    path: ../../core
+  ui_kit:
+    path: ../../ui_kit
+  
+  # State management
+  provider: ^6.1.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0

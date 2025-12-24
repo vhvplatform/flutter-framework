@@ -1,0 +1,54 @@
+/// UI Kit library for Flutter SaaS applications
+library ui_kit;
+
+// Theme
+export 'theme/app_theme.dart';
+
+// Widgets - Buttons & Input
+export 'widgets/app_button.dart';
+export 'widgets/app_text_field.dart';
+export 'widgets/app_search_field.dart';
+export 'widgets/app_dropdown.dart';
+export 'widgets/app_switch.dart';
+export 'widgets/app_checkbox.dart';
+export 'widgets/app_radio.dart';
+export 'widgets/app_slider.dart';
+
+// Widgets - Display
+export 'widgets/app_card.dart';
+export 'widgets/app_chip.dart';
+export 'widgets/app_badge.dart';
+export 'widgets/app_avatar.dart';
+export 'widgets/app_divider.dart';
+export 'widgets/app_progress.dart';
+export 'widgets/app_shimmer.dart';
+
+// Widgets - Feedback
+export 'widgets/loading_indicator.dart';
+export 'widgets/empty_state.dart';
+export 'widgets/error_view.dart';
+export 'widgets/snackbar_helper.dart';
+export 'widgets/dialog_helper.dart';
+export 'widgets/app_bottom_sheet.dart';
+export 'widgets/app_tooltip.dart';
+
+// Widgets - Layout & List
+export 'widgets/app_list_tile.dart';
+export 'widgets/section_header.dart';
+export 'widgets/responsive_layout.dart';
+export 'widgets/app_tabs.dart';
+export 'widgets/app_expansion_tile.dart';
+export 'widgets/app_stepper.dart';
+
+// Widgets - Navigation & Selection
+export 'widgets/app_menu.dart';
+export 'widgets/app_segmented_button.dart';
+export 'widgets/app_tag.dart';
+export 'widgets/app_breadcrumb.dart';
+export 'widgets/app_pagination.dart';
+
+// Widgets - Data Display
+export 'widgets/app_timeline.dart';
+export 'widgets/app_stat_card.dart';
+export 'widgets/app_data_table.dart';
+export 'widgets/app_banner.dart';

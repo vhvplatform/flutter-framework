@@ -22,6 +22,7 @@ A complete Flutter framework for building multiple SaaS applications with a modu
 - **CI/CD**: GitHub Actions workflow for automated testing and building
 - **Performance Optimized**: Lazy loading, image caching, debouncing, memory management
 - **Advanced Performance**: Widget optimization, isolates, frame monitoring, startup tracking, network batching, advanced caching
+- **Developer Experience**: Error boundary, dev menu, hot reload safety, code generator, quick actions
 
 ## 📦 Architecture
 
@@ -516,6 +517,7 @@ This project is licensed under the MIT License.
 ## 📚 Documentation
 
 - **[SETUP.md](SETUP.md)** - Complete setup and installation guide
+- **[DEV_GUIDE.md](DEV_GUIDE.md)** - Developer guide for easier development
 - **[FEATURES.md](FEATURES.md)** - New features and enhancements documentation
 - **[PERFORMANCE.md](PERFORMANCE.md)** - Performance optimizations guide
 - **[ADVANCED_PERFORMANCE.md](ADVANCED_PERFORMANCE.md)** - Advanced performance techniques

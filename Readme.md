@@ -9,7 +9,7 @@ A complete Flutter framework for building multiple SaaS applications with a modu
 - **Multi-tenancy Support**: Built-in tenant isolation and management
 - **Authentication**: Complete auth flow with JWT tokens and refresh logic
 - **API Client**: Pre-configured HTTP client with interceptors and error handling
-- **UI Kit**: Reusable, customizable Material Design 3 components
+- **UI Kit**: Reusable, customizable Material Design 3 components (25+ widgets)
 - **State Management**: Provider-based state management
 - **Dependency Injection**: Service locator pattern with GetIt
 - **Navigation**: Declarative routing with go_router
@@ -517,11 +517,14 @@ This project is licensed under the MIT License.
 ## 📚 Documentation
 
 - **[SETUP.md](SETUP.md)** - Complete setup and installation guide
+- **[UI_KIT_GUIDE.md](UI_KIT_GUIDE.md)** - Complete UI components guide with 25+ widgets and examples
 - **[DEV_GUIDE.md](DEV_GUIDE.md)** - Developer guide for easier development
 - **[FEATURES.md](FEATURES.md)** - New features and enhancements documentation
 - **[PERFORMANCE.md](PERFORMANCE.md)** - Performance optimizations guide
 - **[ADVANCED_PERFORMANCE.md](ADVANCED_PERFORMANCE.md)** - Advanced performance techniques
 - **[IMPLEMENTATION_SUMMARY.md](IMPLEMENTATION_SUMMARY.md)** - Detailed implementation summary
+- **[Core Package README](packages/core/README.md)** - Core package documentation
+- **[UI Kit Package README](packages/ui_kit/README.md)** - UI Kit package overview
 
 ## 🆘 Support
 

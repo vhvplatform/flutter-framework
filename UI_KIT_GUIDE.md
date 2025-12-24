@@ -1647,3 +1647,482 @@ All components support:
 - ✅ Accessibility
 - ✅ Customization
 
+
+---
+
+## Navigation & Selection Components
+
+### AppMenu
+
+Popup menu with icon support and destructive actions.
+
+```dart
+AppMenu(
+  child: IconButton(
+    icon: Icon(Icons.more_vert),
+    onPressed: () {},
+  ),
+  items: [
+    AppMenuItem(
+      label: 'Edit',
+      icon: Icons.edit,
+      onTap: () => editItem(),
+    ),
+    AppMenuItem(
+      label: 'Share',
+      icon: Icons.share,
+      onTap: () => shareItem(),
+    ),
+    AppMenuItem(
+      label: 'Delete',
+      icon: Icons.delete,
+      isDestructive: true,
+      onTap: () => deleteItem(),
+    ),
+  ],
+)
+```
+
+### AppSegmentedButton
+
+Modern segmented control for selecting between options.
+
+```dart
+// Single selection
+AppSegmentedButton<String>(
+  selectedValue: selectedView,
+  options: [
+    SegmentOption(value: 'list', label: 'List', icon: Icons.list),
+    SegmentOption(value: 'grid', label: 'Grid', icon: Icons.grid_view),
+  ],
+  onChanged: (value) => setState(() => selectedView = value),
+)
+
+// Multi-selection
+AppSegmentedButton<String>(
+  selectedValues: selectedFilters,
+  options: [
+    SegmentOption(value: 'new', label: 'New'),
+    SegmentOption(value: 'active', label: 'Active'),
+    SegmentOption(value: 'completed', label: 'Completed'),
+  ],
+  multiSelectionEnabled: true,
+  onMultiChanged: (values) => setState(() => selectedFilters = values),
+)
+```
+
+### AppTag & AppTagGroup
+
+Tag widgets for labels and filters.
+
+```dart
+// Single tag
+AppTag(
+  label: 'Flutter',
+  color: Colors.blue.withOpacity(0.1),
+  textColor: Colors.blue,
+  onDeleted: () => removeTag('Flutter'),
+  onTap: () => selectTag('Flutter'),
+)
+
+// Tag group with wrap layout
+AppTagGroup(
+  tags: ['Flutter', 'Dart', 'Mobile', 'UI/UX'],
+  color: Colors.purple.withOpacity(0.1),
+  outlined: false,
+  onTagDeleted: (tag) => removeTag(tag),
+  onTagTapped: (tag) => filterByTag(tag),
+  spacing: 8,
+  runSpacing: 8,
+)
+```
+
+### AppBreadcrumb
+
+Breadcrumb navigation for hierarchical navigation.
+
+```dart
+AppBreadcrumb(
+  items: [
+    BreadcrumbItem(
+      label: 'Home',
+      onTap: () => navigateToHome(),
+    ),
+    BreadcrumbItem(
+      label: 'Products',
+      onTap: () => navigateToProducts(),
+    ),
+    BreadcrumbItem(
+      label: 'Category',
+      onTap: () => navigateToCategory(),
+    ),
+    BreadcrumbItem(label: 'Item Details'), // Current page (no onTap)
+  ],
+)
+```
+
+### AppPagination
+
+Pagination widget with page numbers and navigation arrows.
+
+```dart
+AppPagination(
+  currentPage: currentPage,
+  totalPages: 20,
+  onPageChanged: (page) {
+    setState(() => currentPage = page);
+    loadPage(page);
+  },
+  maxVisiblePages: 5,
+)
+```
+
+---
+
+## Data Display Components
+
+### AppTimeline
+
+Timeline widget for displaying chronological events.
+
+```dart
+AppTimeline(
+  items: [
+    TimelineItem(
+      title: 'Order Placed',
+      subtitle: 'Your order has been placed successfully',
+      timestamp: '2 hours ago',
+      dotColor: Colors.green,
+    ),
+    TimelineItem(
+      title: 'Processing',
+      subtitle: 'Your order is being prepared',
+      timestamp: '1 hour ago',
+    ),
+    TimelineItem(
+      title: 'Shipped',
+      subtitle: 'Package is on its way',
+      timestamp: '30 minutes ago',
+      child: Text('Tracking: #ABC123'),
+    ),
+    TimelineItem(
+      title: 'Delivered',
+      subtitle: 'Expected delivery today',
+      timestamp: 'Pending',
+    ),
+  ],
+)
+```
+
+### AppStatCard & AppStatGrid
+
+Statistics cards with icons, values, and change indicators.
+
+```dart
+// Single stat card
+AppStatCard(
+  title: 'Total Users',
+  value: '24,567',
+  icon: Icons.people,
+  iconColor: Colors.blue,
+  change: '+12.5%',
+  isPositiveChange: true,
+  onTap: () => viewUserDetails(),
+)
+
+// Grid of stat cards
+AppStatGrid(
+  crossAxisCount: 2,
+  cards: [
+    AppStatCard(
+      title: 'Revenue',
+      value: '\$45,231',
+      icon: Icons.attach_money,
+      iconColor: Colors.green,
+      change: '+18.2%',
+      isPositiveChange: true,
+    ),
+    AppStatCard(
+      title: 'Orders',
+      value: '1,234',
+      icon: Icons.shopping_cart,
+      iconColor: Colors.orange,
+      change: '+5.4%',
+      isPositiveChange: true,
+    ),
+    AppStatCard(
+      title: 'Visitors',
+      value: '8,562',
+      icon: Icons.visibility,
+      iconColor: Colors.purple,
+      change: '-3.1%',
+      isPositiveChange: false,
+    ),
+    AppStatCard(
+      title: 'Conversion',
+      value: '3.24%',
+      icon: Icons.trending_up,
+      iconColor: Colors.blue,
+      change: '+0.8%',
+      isPositiveChange: true,
+    ),
+  ],
+)
+```
+
+### AppDataTable
+
+Customized data table with sorting support.
+
+```dart
+AppDataTable(
+  columns: [
+    DataColumn(label: Text('Name')),
+    DataColumn(label: Text('Email')),
+    DataColumn(
+      label: Text('Status'),
+      onSort: (columnIndex, ascending) {
+        sortByStatus(ascending);
+      },
+    ),
+  ],
+  rows: users.map((user) {
+    return DataRow(
+      cells: [
+        DataCell(Text(user.name)),
+        DataCell(Text(user.email)),
+        DataCell(
+          AppChip(
+            label: user.status,
+            color: user.isActive ? Colors.green : Colors.grey,
+          ),
+        ),
+      ],
+    );
+  }).toList(),
+  sortColumnIndex: 2,
+  sortAscending: true,
+)
+```
+
+### AppBanner
+
+Banner widget for displaying important messages.
+
+```dart
+// Info banner
+AppBanner(
+  message: 'New features are available. Update your app to get them!',
+  type: BannerType.info,
+  actions: [
+    TextButton(
+      onPressed: () => updateApp(),
+      child: Text('Update'),
+    ),
+  ],
+  onDismiss: () => dismissBanner(),
+)
+
+// Success banner
+AppBanner(
+  message: 'Your changes have been saved successfully!',
+  type: BannerType.success,
+  icon: Icons.check_circle,
+  onDismiss: () {},
+)
+
+// Warning banner
+AppBanner(
+  message: 'Your session will expire in 5 minutes.',
+  type: BannerType.warning,
+  actions: [
+    TextButton(
+      onPressed: () => extendSession(),
+      child: Text('Extend'),
+    ),
+  ],
+)
+
+// Error banner
+AppBanner(
+  message: 'Failed to connect to server. Please try again.',
+  type: BannerType.error,
+  actions: [
+    TextButton(
+      onPressed: () => retry(),
+      child: Text('Retry'),
+    ),
+  ],
+)
+```
+
+---
+
+## Real-World Example: Dashboard with New Components
+
+```dart
+class DashboardScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Dashboard'),
+        actions: [
+          // Segmented button for view mode
+          AppSegmentedButton<String>(
+            selectedValue: 'overview',
+            options: [
+              SegmentOption(value: 'overview', label: 'Overview', icon: Icons.dashboard),
+              SegmentOption(value: 'analytics', label: 'Analytics', icon: Icons.analytics),
+            ],
+            onChanged: (value) => changeView(value),
+          ),
+          // Menu for actions
+          AppMenu(
+            child: IconButton(icon: Icon(Icons.more_vert)),
+            items: [
+              AppMenuItem(label: 'Export', icon: Icons.download, onTap: () {}),
+              AppMenuItem(label: 'Settings', icon: Icons.settings, onTap: () {}),
+            ],
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Info banner
+            AppBanner(
+              message: 'Your free trial ends in 7 days. Upgrade now!',
+              type: BannerType.info,
+              actions: [
+                TextButton(child: Text('Upgrade'), onPressed: () {}),
+              ],
+              onDismiss: () {},
+            ),
+            SizedBox(height: 16),
+            
+            // Breadcrumb navigation
+            AppBreadcrumb(
+              items: [
+                BreadcrumbItem(label: 'Home', onTap: () {}),
+                BreadcrumbItem(label: 'Dashboard'),
+              ],
+            ),
+            SizedBox(height: 24),
+            
+            // Stats grid
+            AppStatGrid(
+              crossAxisCount: 2,
+              cards: [
+                AppStatCard(
+                  title: 'Total Revenue',
+                  value: '\$54,231',
+                  icon: Icons.attach_money,
+                  iconColor: Colors.green,
+                  change: '+18.2%',
+                  isPositiveChange: true,
+                ),
+                AppStatCard(
+                  title: 'Active Users',
+                  value: '2,345',
+                  icon: Icons.people,
+                  iconColor: Colors.blue,
+                  change: '+12.5%',
+                  isPositiveChange: true,
+                ),
+              ],
+            ),
+            SizedBox(height: 24),
+            
+            // Tag filters
+            Text('Filter by:', style: TextStyle(fontWeight: FontWeight.bold)),
+            SizedBox(height: 8),
+            AppTagGroup(
+              tags: ['All', 'Active', 'Pending', 'Completed'],
+              outlined: true,
+              onTagTapped: (tag) => filterBy(tag),
+            ),
+            SizedBox(height: 24),
+            
+            // Timeline of recent activity
+            Text('Recent Activity', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            SizedBox(height: 16),
+            AppTimeline(
+              items: [
+                TimelineItem(
+                  title: 'New user registered',
+                  subtitle: 'john@example.com',
+                  timestamp: '2 minutes ago',
+                ),
+                TimelineItem(
+                  title: 'Payment received',
+                  subtitle: '\$299.00',
+                  timestamp: '15 minutes ago',
+                  dotColor: Colors.green,
+                ),
+                TimelineItem(
+                  title: 'New feature deployed',
+                  subtitle: 'Version 2.1.0',
+                  timestamp: '1 hour ago',
+                ),
+              ],
+            ),
+            SizedBox(height: 24),
+            
+            // Pagination
+            AppPagination(
+              currentPage: 1,
+              totalPages: 10,
+              onPageChanged: (page) => loadPage(page),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+```
+
+---
+
+## Component Summary (45+ Total)
+
+### Input (8)
+- AppButton, AppTextField, AppSearchField, AppDropdown
+- AppSwitch, AppCheckbox, AppRadio/AppRadioGroup, AppSlider
+
+### Display (7)
+- AppCard, AppChip, AppBadge, AppAvatar
+- AppDivider, AppProgress (Linear/Circular), AppShimmer
+
+### Feedback (7)
+- LoadingIndicator, EmptyState, ErrorView
+- SnackbarHelper, DialogHelper, BottomSheetHelper, AppTooltip
+
+### Layout (8)
+- AppListTile, SectionHeader, ResponsiveLayout
+- AppTabs, AppExpansionTile, AppStepper
+- ResponsiveContext extensions
+
+### Navigation & Selection (5)
+- AppMenu, AppSegmentedButton, AppTag/AppTagGroup
+- AppBreadcrumb, AppPagination
+
+### Data Display (4)
+- AppTimeline, AppStatCard/AppStatGrid
+- AppDataTable, AppBanner
+
+### Image & Media (1)
+- OptimizedImage
+
+**Total: 45+ production-ready components**
+
+All components support:
+- ✅ Material Design 3
+- ✅ Light/Dark themes
+- ✅ Null safety
+- ✅ Accessibility
+- ✅ Customization
+- ✅ Comprehensive documentation

@@ -39,3 +39,16 @@ export 'widgets/responsive_layout.dart';
 export 'widgets/app_tabs.dart';
 export 'widgets/app_expansion_tile.dart';
 export 'widgets/app_stepper.dart';
+
+// Widgets - Navigation & Selection
+export 'widgets/app_menu.dart';
+export 'widgets/app_segmented_button.dart';
+export 'widgets/app_tag.dart';
+export 'widgets/app_breadcrumb.dart';
+export 'widgets/app_pagination.dart';
+
+// Widgets - Data Display
+export 'widgets/app_timeline.dart';
+export 'widgets/app_stat_card.dart';
+export 'widgets/app_data_table.dart';
+export 'widgets/app_banner.dart';

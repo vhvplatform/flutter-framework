@@ -1,6 +1,6 @@
 # UI Kit Package
 
-A comprehensive collection of 36+ reusable Material Design 3 UI components for Flutter SaaS applications.
+A comprehensive collection of **45+ reusable Material Design 3 UI components** for Flutter SaaS applications.
 
 ## Features
 
@@ -10,7 +10,7 @@ A comprehensive collection of 36+ reusable Material Design 3 UI components for F
 - Customizable color schemes
 - Predefined text styles and component themes
 
-### Widgets (36+ Components)
+### Widgets (45+ Components)
 
 #### Input Components (8)
 - **AppButton**: Customizable button with 4 variants (primary, secondary, outline, text)
@@ -48,6 +48,19 @@ A comprehensive collection of 36+ reusable Material Design 3 UI components for F
 - **AppExpansionTile**: Expansion tile with modern styling
 - **AppStepper**: Horizontal stepper for multi-step processes
 - **ResponsiveContext Extension**: Context extensions (isMobile, isTablet, isDesktop)
+
+#### Navigation & Selection Components (5)
+- **AppMenu**: Popup menu with icon support and destructive actions
+- **AppSegmentedButton**: Modern segmented control for selecting between options
+- **AppTag + AppTagGroup**: Tag widgets for labels and filters with wrap layout
+- **AppBreadcrumb**: Breadcrumb navigation for hierarchical navigation
+- **AppPagination**: Pagination widget with page numbers and arrows
+
+#### Data Display Components (4)
+- **AppTimeline**: Timeline widget for displaying chronological events
+- **AppStatCard + AppStatGrid**: Statistics cards with icons, values, and change indicators
+- **AppDataTable**: Customized data table with sorting support
+- **AppBanner**: Banner widget for important messages (info, success, warning, error)
 
 #### List Components
 - **AppListTile**: Enhanced list tile

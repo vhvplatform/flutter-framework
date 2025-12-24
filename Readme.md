@@ -9,7 +9,7 @@ A complete Flutter framework for building multiple SaaS applications with a modu
 - **Multi-tenancy Support**: Built-in tenant isolation and management
 - **Authentication**: Complete auth flow with JWT tokens and refresh logic
 - **API Client**: Pre-configured HTTP client with interceptors and error handling
-- **UI Kit**: Reusable, customizable Material Design 3 components (25+ widgets)
+- **UI Kit**: Reusable, customizable Material Design 3 components (36+ widgets)
 - **State Management**: Provider-based state management
 - **Dependency Injection**: Service locator pattern with GetIt
 - **Navigation**: Declarative routing with go_router

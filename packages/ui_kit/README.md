@@ -1,6 +1,6 @@
 # UI Kit Package
 
-A comprehensive collection of reusable Material Design 3 UI components for Flutter SaaS applications.
+A comprehensive collection of 36+ reusable Material Design 3 UI components for Flutter SaaS applications.
 
 ## Features
 
@@ -10,44 +10,44 @@ A comprehensive collection of reusable Material Design 3 UI components for Flutt
 - Customizable color schemes
 - Predefined text styles and component themes
 
-### Widgets
+### Widgets (36+ Components)
 
-#### Buttons
+#### Input Components (8)
 - **AppButton**: Customizable button with 4 variants (primary, secondary, outline, text)
-- **IconButton**: Icon-based buttons
-- **FAB**: Floating action buttons
-
-#### Input Components
 - **AppTextField**: Advanced text input with validation, error display, and password toggle
-- **AppSearchField**: Search input with clear button and suggestions
-- **AppDropdown**: Dropdown selector with search support
-- **AppCheckbox**: Styled checkbox with label
-- **AppRadio**: Radio button group
-- **AppSwitch**: Toggle switch with label
-- **AppSlider**: Range slider with labels
+- **AppSearchField**: Search input with clear button and auto-focus
+- **AppDropdown**: Dropdown selector with custom item builder and search support
+- **AppSwitch**: Toggle switch with label and description support
+- **AppCheckbox**: Checkbox with label support
+- **AppRadio**: Radio button with label support + AppRadioGroup for groups
+- **AppSlider**: Range slider with label and value display
 
-#### Display Components
+#### Display Components (7)
 - **AppCard**: Container with elevation and border options
-- **AppChip**: Chip widget for tags and filters
-- **AppBadge**: Badge indicator for notifications
-- **AppAvatar**: User avatar with fallback initials
-- **AppDivider**: Horizontal and vertical dividers
-- **AppTag**: Tag widget with colors
+- **AppChip**: Chip widget for tags and filters with delete/tap actions
+- **AppBadge**: Badge indicator for notifications with max count support
+- **AppAvatar**: User avatar with automatic initials fallback and color generation
+- **AppDivider**: Horizontal and vertical dividers with customization
+- **AppProgress**: Linear and circular progress indicators with percentage display
+- **AppShimmer**: Shimmer loading effect with pre-built skeletons
 
-#### Feedback Components
+#### Feedback Components (7)
 - **LoadingIndicator**: Centered loading spinner
 - **EmptyState**: Empty state with icon and message
 - **ErrorView**: Error display with retry button
-- **SnackbarHelper**: Easy snackbar notifications
-- **DialogHelper**: Pre-built dialog templates
-- **BottomSheetHelper**: Bottom sheet utilities
+- **SnackbarHelper**: Easy snackbar notifications (success, error, warning, info)
+- **DialogHelper**: Pre-built dialog templates (confirm, alert, loading, custom)
+- **BottomSheetHelper**: Bottom sheet utilities with options list support
+- **AppTooltip**: Customized tooltip with better styling
 
-#### Layout Components
-- **AppScaffold**: Enhanced scaffold with loading overlay
-- **AppAppBar**: Customizable app bar
-- **AppBottomNavigation**: Bottom navigation bar
-- **AppDrawer**: Navigation drawer
-- **ResponsiveLayout**: Responsive layout builder
+#### Layout & Navigation Components (8)
+- **AppListTile**: Enhanced list tile with better styling and states
+- **SectionHeader**: Section headers for organized lists
+- **ResponsiveLayout**: Responsive layout builder for mobile/tablet/desktop
+- **AppTabs**: Customized tab bar with modern styling
+- **AppExpansionTile**: Expansion tile with modern styling
+- **AppStepper**: Horizontal stepper for multi-step processes
+- **ResponsiveContext Extension**: Context extensions (isMobile, isTablet, isDesktop)
 
 #### List Components
 - **AppListTile**: Enhanced list tile

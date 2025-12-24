@@ -1004,3 +1004,646 @@ For more information, see:
 - [UI Kit README](packages/ui_kit/README.md)
 - [Theme Documentation](packages/ui_kit/lib/theme/app_theme.dart)
 - [Component Examples](packages/ui_kit/example/)
+
+### AppSwitch
+
+Toggle switch with label and description support.
+
+```dart
+// Basic switch
+AppSwitch(
+  value: _enabled,
+  onChanged: (value) => setState(() => _enabled = value),
+  label: 'Enable notifications',
+)
+
+// With description
+AppSwitch(
+  value: _darkMode,
+  onChanged: (value) => setState(() => _darkMode = value),
+  label: 'Dark Mode',
+  description: 'Use dark theme across the app',
+)
+
+// Custom color
+AppSwitch(
+  value: _autoSave,
+  onChanged: (value) => setState(() => _autoSave = value),
+  label: 'Auto-save',
+  activeColor: Colors.green,
+)
+```
+
+### AppCheckbox
+
+Checkbox with label support.
+
+```dart
+// Basic checkbox
+AppCheckbox(
+  value: _agreed,
+  onChanged: (value) => setState(() => _agreed = value ?? false),
+  label: 'I agree to the terms and conditions',
+)
+
+// Disabled checkbox
+AppCheckbox(
+  value: _accepted,
+  onChanged: null, // Disabled
+  label: 'Accepted',
+)
+
+// Custom color
+AppCheckbox(
+  value: _checked,
+  onChanged: (value) => setState(() => _checked = value ?? false),
+  label: 'Remember me',
+  activeColor: Colors.purple,
+)
+```
+
+### AppRadio & AppRadioGroup
+
+Radio button with label support and radio groups.
+
+```dart
+// Single radio button
+AppRadio<String>(
+  value: 'option1',
+  groupValue: _selectedOption,
+  onChanged: (value) => setState(() => _selectedOption = value),
+  label: 'Option 1',
+)
+
+// Radio group
+AppRadioGroup<String>(
+  value: _selectedPayment,
+  onChanged: (value) => setState(() => _selectedPayment = value),
+  title: 'Payment Method',
+  options: [
+    RadioOption(value: 'card', label: 'Credit Card'),
+    RadioOption(value: 'paypal', label: 'PayPal'),
+    RadioOption(value: 'bank', label: 'Bank Transfer'),
+  ],
+)
+```
+
+### AppSlider
+
+Range slider with label and value display.
+
+```dart
+// Basic slider
+AppSlider(
+  value: _volume,
+  onChanged: (value) => setState(() => _volume = value),
+  label: 'Volume',
+  min: 0,
+  max: 100,
+  showValue: true,
+)
+
+// With divisions
+AppSlider(
+  value: _brightness,
+  onChanged: (value) => setState(() => _brightness = value),
+  label: 'Brightness',
+  min: 0,
+  max: 100,
+  divisions: 10,
+  showValue: true,
+)
+
+// Custom formatter
+AppSlider(
+  value: _price,
+  onChanged: (value) => setState(() => _price = value),
+  label: 'Price Range',
+  min: 0,
+  max: 1000,
+  showValue: true,
+  valueFormatter: (value) => '\$${value.toStringAsFixed(0)}',
+)
+```
+
+---
+
+## Display Components (Extended)
+
+### AppProgress
+
+Linear and circular progress indicators with percentage display.
+
+```dart
+// Linear progress
+AppLinearProgress(
+  value: 0.65,
+  label: 'Upload progress',
+  showPercentage: true,
+  color: Colors.blue,
+)
+
+// Indeterminate linear progress
+AppLinearProgress(
+  label: 'Loading...',
+)
+
+// Circular progress with percentage
+AppCircularProgress(
+  value: 0.75,
+  size: 100,
+  showPercentage: true,
+  color: Colors.green,
+)
+
+// Indeterminate circular progress
+AppCircularProgress(
+  size: 48,
+)
+```
+
+### AppShimmer
+
+Shimmer loading effect for skeleton screens.
+
+```dart
+// Custom shimmer
+AppShimmer(
+  child: Container(
+    width: double.infinity,
+    height: 100,
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(12),
+    ),
+  ),
+)
+
+// Pre-built list item skeleton
+ShimmerListItem(
+  hasLeading: true,
+  hasTrailing: false,
+  lines: 2,
+)
+
+// Pre-built card skeleton
+ShimmerCard(
+  height: 200,
+)
+
+// Loading list with shimmer
+ListView.builder(
+  itemCount: _isLoading ? 5 : items.length,
+  itemBuilder: (context, index) {
+    if (_isLoading) {
+      return ShimmerListItem();
+    }
+    return ListTile(title: Text(items[index]));
+  },
+)
+```
+
+---
+
+## Feedback Components (Extended)
+
+### AppTooltip
+
+Customized tooltip with better styling.
+
+```dart
+AppTooltip(
+  message: 'This is a helpful tooltip',
+  child: Icon(Icons.info_outline),
+)
+
+// Custom duration
+AppTooltip(
+  message: 'Hold to see more',
+  waitDuration: Duration(milliseconds: 300),
+  showDuration: Duration(seconds: 3),
+  child: IconButton(
+    icon: Icon(Icons.help_outline),
+    onPressed: () {},
+  ),
+)
+```
+
+### BottomSheetHelper
+
+Helper for showing bottom sheets with consistent styling.
+
+```dart
+// Custom bottom sheet
+await BottomSheetHelper.show(
+  context,
+  title: 'Filter Options',
+  builder: (context) => ListView(
+    shrinkWrap: true,
+    children: [
+      ListTile(title: Text('Option 1')),
+      ListTile(title: Text('Option 2')),
+    ],
+  ),
+)
+
+// Bottom sheet with options
+final result = await BottomSheetHelper.showOptions(
+  context,
+  title: 'Choose Action',
+  options: [
+    BottomSheetOption(
+      label: 'Edit',
+      icon: Icons.edit,
+      value: 'edit',
+    ),
+    BottomSheetOption(
+      label: 'Share',
+      icon: Icons.share,
+      value: 'share',
+    ),
+    BottomSheetOption(
+      label: 'Delete',
+      icon: Icons.delete,
+      value: 'delete',
+      isDestructive: true,
+    ),
+  ],
+);
+
+if (result == 'delete') {
+  // Handle delete
+}
+```
+
+---
+
+## Layout Components (Extended)
+
+### AppTabs
+
+Customized tab bar with modern styling.
+
+```dart
+AppTabs(
+  tabs: ['Home', 'Profile', 'Settings'],
+  currentIndex: _currentTab,
+  onTap: (index) => setState(() => _currentTab = index),
+)
+
+// Custom colors
+AppTabs(
+  tabs: ['Active', 'Completed', 'Archived'],
+  currentIndex: _currentTab,
+  onTap: (index) => setState(() => _currentTab = index),
+  activeColor: Colors.purple,
+  indicatorColor: Colors.purpleAccent,
+)
+```
+
+### AppExpansionTile
+
+Expansion tile with modern styling.
+
+```dart
+AppExpansionTile(
+  title: 'Advanced Settings',
+  subtitle: 'Tap to expand',
+  children: [
+    ListTile(title: Text('Option 1')),
+    ListTile(title: Text('Option 2')),
+    ListTile(title: Text('Option 3')),
+  ],
+)
+
+// With leading icon
+AppExpansionTile(
+  title: 'Account Information',
+  leading: Icon(Icons.account_circle),
+  children: [
+    ListTile(
+      title: Text('Email'),
+      subtitle: Text('user@example.com'),
+    ),
+    ListTile(
+      title: Text('Phone'),
+      subtitle: Text('+1 234 567 8900'),
+    ),
+  ],
+)
+```
+
+### AppStepper
+
+Horizontal stepper for multi-step processes.
+
+```dart
+AppStepper(
+  steps: ['Account', 'Profile', 'Confirmation'],
+  currentStep: _currentStep,
+  onStepTap: (index) {
+    if (index < _currentStep) {
+      setState(() => _currentStep = index);
+    }
+  },
+)
+
+// Custom colors
+AppStepper(
+  steps: ['Select Plan', 'Payment', 'Complete'],
+  currentStep: _currentStep,
+  activeColor: Colors.purple,
+  completedColor: Colors.green,
+  inactiveColor: Colors.grey,
+)
+
+// Full example with navigation
+Column(
+  children: [
+    AppStepper(
+      steps: _steps,
+      currentStep: _currentStep,
+    ),
+    Expanded(
+      child: _getStepContent(_currentStep),
+    ),
+    Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        if (_currentStep > 0)
+          AppButton(
+            label: 'Back',
+            onPressed: () => setState(() => _currentStep--),
+            variant: ButtonVariant.outline,
+          ),
+        AppButton(
+          label: _currentStep < _steps.length - 1 ? 'Next' : 'Finish',
+          onPressed: _handleNext,
+        ),
+      ],
+    ),
+  ],
+)
+```
+
+---
+
+## Real-World Examples (Extended)
+
+### Multi-Step Form with Stepper
+
+```dart
+class SignupFlow extends StatefulWidget {
+  @override
+  _SignupFlowState createState() => _SignupFlowState();
+}
+
+class _SignupFlowState extends State<SignupFlow> {
+  int _currentStep = 0;
+  final _steps = ['Account', 'Profile', 'Preferences'];
+  
+  String _email = '';
+  String _password = '';
+  String _name = '';
+  bool _notifications = true;
+  
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Sign Up')),
+      body: Column(
+        children: [
+          AppStepper(
+            steps: _steps,
+            currentStep: _currentStep,
+          ),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.all(16),
+              child: _buildStepContent(),
+            ),
+          ),
+          _buildButtons(),
+        ],
+      ),
+    );
+  }
+  
+  Widget _buildStepContent() {
+    switch (_currentStep) {
+      case 0:
+        return Column(
+          children: [
+            AppTextField(
+              label: 'Email',
+              value: _email,
+              onChanged: (value) => setState(() => _email = value),
+              keyboardType: TextInputType.emailAddress,
+            ),
+            SizedBox(height: 16),
+            AppTextField(
+              label: 'Password',
+              value: _password,
+              onChanged: (value) => setState(() => _password = value),
+              isPassword: true,
+            ),
+          ],
+        );
+      case 1:
+        return Column(
+          children: [
+            AppTextField(
+              label: 'Full Name',
+              value: _name,
+              onChanged: (value) => setState(() => _name = value),
+            ),
+            SizedBox(height: 16),
+            AppButton(
+              label: 'Upload Avatar',
+              onPressed: () {},
+              variant: ButtonVariant.outline,
+            ),
+          ],
+        );
+      case 2:
+        return Column(
+          children: [
+            AppSwitch(
+              value: _notifications,
+              onChanged: (value) => setState(() => _notifications = value),
+              label: 'Enable Notifications',
+              description: 'Receive updates and alerts',
+            ),
+          ],
+        );
+      default:
+        return Container();
+    }
+  }
+  
+  Widget _buildButtons() {
+    return Padding(
+      padding: EdgeInsets.all(16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          if (_currentStep > 0)
+            AppButton(
+              label: 'Back',
+              onPressed: () => setState(() => _currentStep--),
+              variant: ButtonVariant.outline,
+            ),
+          AppButton(
+            label: _currentStep < _steps.length - 1 ? 'Next' : 'Finish',
+            onPressed: _handleNext,
+          ),
+        ],
+      ),
+    );
+  }
+  
+  void _handleNext() {
+    if (_currentStep < _steps.length - 1) {
+      setState(() => _currentStep++);
+    } else {
+      // Complete signup
+      _completeSignup();
+    }
+  }
+  
+  void _completeSignup() async {
+    // Handle signup completion
+    SnackbarHelper.showSuccess(context, 'Account created successfully!');
+    Navigator.of(context).pop();
+  }
+}
+```
+
+### Settings Screen with All Components
+
+```dart
+class SettingsScreen extends StatefulWidget {
+  @override
+  _SettingsScreenState createState() => _SettingsScreenState();
+}
+
+class _SettingsScreenState extends State<SettingsScreen> {
+  bool _notifications = true;
+  bool _darkMode = false;
+  double _volume = 50;
+  String _language = 'en';
+  
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Settings')),
+      body: ListView(
+        children: [
+          SectionHeader(title: 'Preferences'),
+          AppSwitch(
+            value: _notifications,
+            onChanged: (value) => setState(() => _notifications = value),
+            label: 'Notifications',
+            description: 'Receive push notifications',
+          ),
+          AppSwitch(
+            value: _darkMode,
+            onChanged: (value) => setState(() => _darkMode = value),
+            label: 'Dark Mode',
+            description: 'Use dark theme',
+          ),
+          AppDivider(),
+          
+          SectionHeader(title: 'Audio'),
+          AppSlider(
+            value: _volume,
+            onChanged: (value) => setState(() => _volume = value),
+            label: 'Volume',
+            min: 0,
+            max: 100,
+            showValue: true,
+          ),
+          AppDivider(),
+          
+          SectionHeader(title: 'Language'),
+          AppRadioGroup<String>(
+            value: _language,
+            onChanged: (value) => setState(() => _language = value!),
+            options: [
+              RadioOption(value: 'en', label: 'English'),
+              RadioOption(value: 'vi', label: 'Tiếng Việt'),
+              RadioOption(value: 'es', label: 'Español'),
+            ],
+          ),
+          AppDivider(),
+          
+          SectionHeader(title: 'Account'),
+          AppExpansionTile(
+            title: 'Account Information',
+            leading: Icon(Icons.account_circle),
+            children: [
+              ListTile(
+                title: Text('Email'),
+                subtitle: Text('user@example.com'),
+              ),
+              ListTile(
+                title: Text('Member since'),
+                subtitle: Text('January 2024'),
+              ),
+            ],
+          ),
+          
+          Padding(
+            padding: EdgeInsets.all(16),
+            child: AppButton(
+              label: 'Save Changes',
+              onPressed: _saveSettings,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+  
+  void _saveSettings() async {
+    // Show loading
+    final loadingDialog = DialogHelper.showLoading(context, message: 'Saving...');
+    
+    await Future.delayed(Duration(seconds: 1));
+    
+    Navigator.of(context).pop(); // Close loading
+    SnackbarHelper.showSuccess(context, 'Settings saved successfully!');
+  }
+}
+```
+
+---
+
+## Component Summary
+
+**Total: 36+ Components**
+
+### Input (8)
+- AppButton, AppTextField, AppSearchField, AppDropdown
+- AppSwitch, AppCheckbox, AppRadio/AppRadioGroup, AppSlider
+
+### Display (7)
+- AppCard, AppChip, AppBadge, AppAvatar
+- AppDivider, AppProgress (Linear/Circular), AppShimmer
+
+### Feedback (7)
+- LoadingIndicator, EmptyState, ErrorView
+- SnackbarHelper, DialogHelper, BottomSheetHelper, AppTooltip
+
+### Layout (8)
+- AppListTile, SectionHeader, ResponsiveLayout
+- AppTabs, AppExpansionTile, AppStepper
+- ResponsiveContext extensions
+
+All components support:
+- ✅ Material Design 3
+- ✅ Light/Dark themes
+- ✅ Null safety
+- ✅ Accessibility
+- ✅ Customization
+

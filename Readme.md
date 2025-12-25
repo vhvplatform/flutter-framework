@@ -27,7 +27,7 @@ A complete Flutter framework for building multiple SaaS applications with a modu
 ## 📦 Architecture
 
 ```
-saas-framework-flutter/
+flutter-framework/
 ├── packages/
 │   ├── core/                    # Core framework functionality
 │   │   ├── lib/
@@ -76,8 +76,8 @@ dart pub global activate melos
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/longvhv/saas-framework-flutter.git
-cd saas-framework-flutter
+git clone https://github.com/vhvcorp/flutter-framework.git
+cd flutter-framework
 ```
 
 ### 2. Bootstrap the Project

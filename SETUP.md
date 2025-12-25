@@ -30,8 +30,8 @@ Make sure the pub cache bin directory is in your PATH.
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/longvhv/saas-framework-flutter.git
-cd saas-framework-flutter
+git clone https://github.com/vhvcorp/flutter-framework.git
+cd flutter-framework
 ```
 
 ### 2. Bootstrap the Project
@@ -89,7 +89,7 @@ flutter run              # For connected device
 ## Project Structure
 
 ```
-saas-framework-flutter/
+flutter-framework/
 ├── packages/
 │   ├── core/                    # Core framework
 │   ├── ui_kit/                  # UI components

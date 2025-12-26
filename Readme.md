@@ -76,8 +76,8 @@ dart pub global activate melos
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/vhvcorp/flutter-framework.git
-cd flutter-framework
+git clone https://github.com/vhvplatform/flutter-framework.git
+cd saas-framework-flutter
 ```
 
 ### 2. Bootstrap the Project
@@ -532,7 +532,7 @@ For questions and support, please open an issue on GitHub.
 
 ## 🔗 Related Projects
 
-- [saas-framework-go](https://github.com/longvhv/saas-framework-go) - Go backend framework
+- [go-framework](https://github.com/vhvplatform/go-framework) - Go backend framework
 
 ---
 

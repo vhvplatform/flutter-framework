@@ -1,5 +1,5 @@
 name: saas_framework_flutter
-repository: https://github.com/vhvcorp/flutter-framework
+repository: https://github.com/vhvplatform/flutter-framework
 
 packages:
   - packages/**

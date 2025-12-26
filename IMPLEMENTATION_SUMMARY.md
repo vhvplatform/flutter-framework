@@ -6,7 +6,7 @@ A complete Flutter framework for building multiple SaaS applications with modula
 ## Project Structure
 
 ```
-saas-framework-flutter/
+flutter-framework/
 ├── packages/
 │   ├── core/                          # Core framework (17 files)
 │   │   ├── lib/
@@ -359,7 +359,7 @@ To use the framework:
 
 3. **Bootstrap Project**
    ```bash
-   cd saas-framework-flutter
+   cd flutter-framework
    melos bootstrap
    ```
 

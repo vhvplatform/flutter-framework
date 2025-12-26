@@ -89,7 +89,7 @@ flutter run              # For connected device
 ## Project Structure
 
 ```
-saas-framework-flutter/
+flutter-framework/
 ├── packages/
 │   ├── core/                    # Core framework
 │   ├── ui_kit/                  # UI components

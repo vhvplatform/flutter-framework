@@ -27,7 +27,7 @@ A complete Flutter framework for building multiple SaaS applications with a modu
 ## 📦 Architecture
 
 ```
-saas-framework-flutter/
+flutter-framework/
 ├── packages/
 │   ├── core/                    # Core framework functionality
 │   │   ├── lib/

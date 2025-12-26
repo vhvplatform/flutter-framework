@@ -30,7 +30,7 @@ Make sure the pub cache bin directory is in your PATH.
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/longvhv/saas-framework-flutter.git
+git clone https://github.com/vhvplatform/flutter-framework.git
 cd saas-framework-flutter
 ```
 

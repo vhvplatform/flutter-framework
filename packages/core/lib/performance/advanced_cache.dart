@@ -7,7 +7,7 @@ import 'dart:collection';
 /// LRU (Least Recently Used) Cache
 class LRUCache<K, V> {
   /// Creates an LRU cache
-  LRUCache({required this.maxSize});
+  LRUCache({required this.maxSize}) : assert(maxSize > 0, 'Cache size must be positive');
 
   /// Maximum cache size
   final int maxSize;
@@ -37,9 +37,12 @@ class LRUCache<K, V> {
       expiresAt: ttl != null ? DateTime.now().add(ttl) : null,
     );
 
-    // Evict if over size
-    while (_cache.length > maxSize) {
-      _cache.remove(_cache.keys.first);
+    // Evict if over size - more efficient than while loop
+    if (_cache.length > maxSize) {
+      final keysToRemove = _cache.keys.take(_cache.length - maxSize).toList();
+      for (final key in keysToRemove) {
+        _cache.remove(key);
+      }
     }
   }
 
@@ -49,8 +52,9 @@ class LRUCache<K, V> {
   }
 
   /// Remove key
-  void remove(K key) {
-    _cache.remove(key);
+  V? remove(K key) {
+    final entry = _cache.remove(key);
+    return entry?.value;
   }
 
   /// Clear cache
@@ -60,6 +64,9 @@ class LRUCache<K, V> {
 
   /// Get cache size
   int get size => _cache.length;
+  
+  /// Get all keys
+  Iterable<K> get keys => _cache.keys;
 }
 
 class _CacheEntry<V> {

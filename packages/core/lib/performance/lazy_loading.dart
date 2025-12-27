@@ -67,14 +67,12 @@ class _LazyListViewState<T> extends State<LazyListView<T>> {
   }
 
   void _onScroll() {
-    if (_scrollController.position.maxScrollExtent == 0) return;
+    final position = _scrollController.position;
+    if (position.maxScrollExtent == 0 || !position.hasPixels) return;
 
-    final threshold = _scrollController.position.maxScrollExtent -
-        (_scrollController.position.viewportDimension * 0.2);
+    final threshold = position.maxScrollExtent - (position.viewportDimension * 0.2);
 
-    if (_scrollController.position.pixels >= threshold &&
-        !widget.isLoading &&
-        widget.hasMore) {
+    if (position.pixels >= threshold && !widget.isLoading && widget.hasMore) {
       widget.onLoadMore?.call();
     }
   }

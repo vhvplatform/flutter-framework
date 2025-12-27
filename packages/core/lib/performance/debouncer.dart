@@ -12,11 +12,17 @@ class Debouncer {
   final Duration duration;
   
   Timer? _timer;
+  bool _isDisposed = false;
 
   /// Run the action after the debounce duration
   void run(void Function() action) {
+    if (_isDisposed) return;
     _timer?.cancel();
-    _timer = Timer(duration, action);
+    _timer = Timer(duration, () {
+      if (!_isDisposed) {
+        action();
+      }
+    });
   }
 
   /// Cancel pending action
@@ -26,7 +32,9 @@ class Debouncer {
 
   /// Dispose the debouncer
   void dispose() {
+    _isDisposed = true;
     _timer?.cancel();
+    _timer = null;
   }
 }
 
@@ -40,16 +48,19 @@ class Throttler {
   
   Timer? _timer;
   bool _isThrottled = false;
+  bool _isDisposed = false;
 
   /// Run the action if not currently throttled
   void run(void Function() action) {
-    if (_isThrottled) return;
+    if (_isThrottled || _isDisposed) return;
 
     action();
     _isThrottled = true;
     
     _timer = Timer(duration, () {
-      _isThrottled = false;
+      if (!_isDisposed) {
+        _isThrottled = false;
+      }
     });
   }
 
@@ -61,7 +72,9 @@ class Throttler {
 
   /// Dispose the throttler
   void dispose() {
+    _isDisposed = true;
     _timer?.cancel();
+    _timer = null;
   }
 }
 

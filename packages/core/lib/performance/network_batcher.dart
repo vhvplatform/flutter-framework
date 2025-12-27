@@ -86,6 +86,14 @@ class NetworkBatcher {
   /// Dispose the batcher
   void dispose() {
     _batchTimer?.cancel();
+    _batchTimer = null;
+    
+    // Complete pending requests with error
+    for (final request in _pendingRequests) {
+      if (!request.completer.isCompleted) {
+        request.completer.completeError('NetworkBatcher disposed');
+      }
+    }
     _pendingRequests.clear();
   }
 }
@@ -109,6 +117,7 @@ class _BatchedRequest {
 /// Request deduplication to avoid duplicate requests
 class RequestDeduplicator {
   final Map<String, Future<Response>> _inFlightRequests = {};
+  static const int _maxCachedRequests = 100; // Prevent unbounded growth
 
   /// Execute request with deduplication
   Future<Response> execute({
@@ -118,6 +127,11 @@ class RequestDeduplicator {
     // Check if request is already in flight
     if (_inFlightRequests.containsKey(key)) {
       return _inFlightRequests[key]!;
+    }
+
+    // Clean up old requests if too many cached
+    if (_inFlightRequests.length >= _maxCachedRequests) {
+      _inFlightRequests.clear();
     }
 
     // Execute request
@@ -136,4 +150,7 @@ class RequestDeduplicator {
   void clear() {
     _inFlightRequests.clear();
   }
+  
+  /// Get count of in-flight requests
+  int get inFlightCount => _inFlightRequests.length;
 }

@@ -4,6 +4,7 @@
 # This script automates the setup process for the Flutter SaaS Framework
 
 set -e  # Exit on error
+set -o pipefail  # Exit on pipe failure
 
 # Colors for output
 RED='\033[0;31m'
@@ -56,7 +57,7 @@ main() {
     
     # Check Flutter
     if command_exists flutter; then
-        FLUTTER_VERSION=$(flutter --version 2>&1 | head -n 1 | cut -d ' ' -f 2)
+        FLUTTER_VERSION=$(flutter --version 2>&1 | head -n 1 | awk '{print $2}')
         print_success "Flutter is installed (version: $FLUTTER_VERSION)"
     else
         print_error "Flutter is not installed"
@@ -66,7 +67,7 @@ main() {
     
     # Check Dart
     if command_exists dart; then
-        DART_VERSION=$(dart --version 2>&1 | sed -n 's/.*Dart SDK version: \([0-9.]*\).*/\1/p' || echo "unknown")
+        DART_VERSION=$(dart --version 2>&1 | awk '{for(i=1;i<=NF;i++) if($i~/[0-9]+\.[0-9]+\.[0-9]+/) print $i}' | head -n 1)
         print_success "Dart is installed (version: $DART_VERSION)"
     else
         print_error "Dart is not installed"
@@ -76,7 +77,7 @@ main() {
     
     # Check Git
     if command_exists git; then
-        GIT_VERSION=$(git --version | cut -d ' ' -f 3)
+        GIT_VERSION=$(git --version | awk '{print $3}')
         print_success "Git is installed (version: $GIT_VERSION)"
     else
         print_error "Git is not installed"
@@ -86,13 +87,13 @@ main() {
     
     # Check Melos
     if command_exists melos; then
-        MELOS_VERSION=$(melos --version 2>&1 | sed -n 's/.*\([0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\).*/\1/p' | head -n 1 || echo "unknown")
+        MELOS_VERSION=$(melos --version 2>&1 | awk '{for(i=1;i<=NF;i++) if($i~/[0-9]+\.[0-9]+\.[0-9]+/) print $i}' | head -n 1)
         print_success "Melos is installed (version: $MELOS_VERSION)"
     else
         print_warning "Melos is not installed"
         print_info "Attempting to install Melos..."
         
-        if dart pub global activate melos; then
+        if dart pub global activate melos 2>&1; then
             print_success "Melos installed successfully"
             
             # Check if pub-cache/bin is in PATH
@@ -147,10 +148,10 @@ main() {
     print_header "Step 4: Code Generation (Optional)"
     print_info "Checking if code generation is needed..."
     
-    # Check if any package has build_runner
+    # Check if any package has build_runner - optimized with grep
     has_build_runner=false
     if [ -d "packages" ] || [ -d "apps" ]; then
-        if find packages apps -name "pubspec.yaml" -type f 2>/dev/null | xargs grep -l "build_runner" > /dev/null 2>&1; then
+        if find packages apps -name "pubspec.yaml" -type f -exec grep -q "build_runner" {} \; 2>/dev/null; then
             has_build_runner=true
         fi
     fi

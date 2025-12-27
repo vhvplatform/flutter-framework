@@ -66,7 +66,7 @@ main() {
     
     # Check Dart
     if command_exists dart; then
-        DART_VERSION=$(dart --version 2>&1 | grep -oP 'Dart SDK version: \K[0-9.]+' || echo "unknown")
+        DART_VERSION=$(dart --version 2>&1 | sed -n 's/.*Dart SDK version: \([0-9.]*\).*/\1/p' || echo "unknown")
         print_success "Dart is installed (version: $DART_VERSION)"
     else
         print_error "Dart is not installed"
@@ -86,7 +86,7 @@ main() {
     
     # Check Melos
     if command_exists melos; then
-        MELOS_VERSION=$(melos --version 2>&1 | grep -oP '[0-9]+\.[0-9]+\.[0-9]+' | head -n 1 || echo "unknown")
+        MELOS_VERSION=$(melos --version 2>&1 | sed -n 's/.*\([0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\).*/\1/p' | head -n 1 || echo "unknown")
         print_success "Melos is installed (version: $MELOS_VERSION)"
     else
         print_warning "Melos is not installed"
@@ -148,7 +148,14 @@ main() {
     print_info "Checking if code generation is needed..."
     
     # Check if any package has build_runner
-    if grep -r "build_runner" packages/*/pubspec.yaml apps/*/pubspec.yaml > /dev/null 2>&1; then
+    has_build_runner=false
+    if [ -d "packages" ] || [ -d "apps" ]; then
+        if find packages apps -name "pubspec.yaml" -type f 2>/dev/null | xargs grep -l "build_runner" > /dev/null 2>&1; then
+            has_build_runner=true
+        fi
+    fi
+    
+    if [ "$has_build_runner" = true ]; then
         print_info "Running code generation..."
         if melos generate 2>/dev/null; then
             print_success "Code generation completed"

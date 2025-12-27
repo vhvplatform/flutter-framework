@@ -85,7 +85,7 @@ main() {
     # Check Dart
     print_info "Checking Dart..."
     if command_exists dart; then
-        DART_VERSION=$(dart --version 2>&1 | grep -oP 'Dart SDK version: \K[0-9.]+' || echo "unknown")
+        DART_VERSION=$(dart --version 2>&1 | sed -n 's/.*Dart SDK version: \([0-9.]*\).*/\1/p' || echo "unknown")
         print_success "Dart installed: version $DART_VERSION"
         
         # Check minimum version (3.0.0)
@@ -119,7 +119,7 @@ main() {
     # Check Melos
     print_info "Checking Melos..."
     if command_exists melos; then
-        MELOS_VERSION=$(melos --version 2>&1 | grep -oP '[0-9]+\.[0-9]+\.[0-9]+' | head -n 1 || echo "unknown")
+        MELOS_VERSION=$(melos --version 2>&1 | sed -n 's/.*\([0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\).*/\1/p' | head -n 1 || echo "unknown")
         print_success "Melos installed: version $MELOS_VERSION"
     else
         print_error "Melos is NOT installed"

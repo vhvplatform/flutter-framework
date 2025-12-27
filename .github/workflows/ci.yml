@@ -17,7 +17,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.16.0'
+          flutter-version: '3.38.4'
           channel: 'stable'
           
       - name: Install Melos
@@ -39,7 +39,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.16.0'
+          flutter-version: '3.38.4'
           channel: 'stable'
           
       - name: Install Melos
@@ -61,7 +61,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.16.0'
+          flutter-version: '3.38.4'
           channel: 'stable'
           
       - name: Install Melos
@@ -81,7 +81,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.16.0'
+          flutter-version: '3.38.4'
           channel: 'stable'
           
       - name: Setup Java
@@ -118,7 +118,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.16.0'
+          flutter-version: '3.38.4'
           channel: 'stable'
           
       - name: Install Melos

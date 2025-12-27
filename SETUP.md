@@ -6,6 +6,8 @@ This guide will help you set up and run the Flutter SaaS Framework.
 
 **For the fastest setup experience**, use our automated setup script:
 
+### Linux / macOS
+
 ```bash
 # 1. Clone the repository
 git clone https://github.com/vhvplatform/flutter-framework.git
@@ -34,6 +36,38 @@ make setup
 
 # 3. Run an example app
 make run-app1
+```
+
+### Windows
+
+**Option 1: PowerShell (Recommended)**
+
+```powershell
+# 1. Clone the repository
+git clone https://github.com/vhvplatform/flutter-framework.git
+cd flutter-framework
+
+# 2. Run automated setup
+.\setup.ps1
+
+# 3. Run an example app
+cd apps\app1
+flutter run
+```
+
+**Option 2: Command Prompt**
+
+```cmd
+# 1. Clone the repository
+git clone https://github.com/vhvplatform/flutter-framework.git
+cd flutter-framework
+
+# 2. Run automated setup
+setup.bat
+
+# 3. Run an example app
+cd apps\app1
+flutter run
 ```
 
 The automated setup script will:

@@ -29,6 +29,8 @@ cd flutter-framework
 
 ### Step 2: Run Automated Setup
 
+#### Linux / macOS
+
 **Option A: Using the setup script (recommended)**
 
 ```bash
@@ -39,6 +41,20 @@ cd flutter-framework
 
 ```bash
 make setup
+```
+
+#### Windows
+
+**Option A: PowerShell (recommended)**
+
+```powershell
+.\setup.ps1
+```
+
+**Option B: Command Prompt**
+
+```cmd
+setup.bat
 ```
 
 The setup process will:
@@ -52,6 +68,8 @@ This takes about 2-5 minutes depending on your internet speed.
 
 ### Step 3: Run an Example App
 
+#### Linux / macOS
+
 ```bash
 cd apps/app1
 flutter run
@@ -61,6 +79,13 @@ Or use the shortcut:
 
 ```bash
 make run-app1
+```
+
+#### Windows
+
+```cmd
+cd apps\app1
+flutter run
 ```
 
 Select your target device when prompted (web, mobile, desktop).
@@ -109,12 +134,31 @@ Install Flutter from [flutter.dev](https://flutter.dev/docs/get-started/install)
 
 The setup script should install Melos automatically. If it still doesn't work:
 
+**Linux / macOS:**
+
 ```bash
 dart pub global activate melos
 export PATH="$PATH:$HOME/.pub-cache/bin"
 ```
 
 Add the export line to your `~/.bashrc` or `~/.zshrc` to make it permanent.
+
+**Windows:**
+
+```powershell
+dart pub global activate melos
+# Add to PATH: %LOCALAPPDATA%\Pub\Cache\bin
+```
+
+### PowerShell script execution error (Windows)
+
+If you get an error about script execution policy:
+
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+
+Then try running `.\setup.ps1` again.
 
 ### Setup script fails
 

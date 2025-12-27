@@ -74,6 +74,8 @@ flutter-framework/
 
 The fastest way to get started:
 
+**Linux / macOS:**
+
 ```bash
 # 1. Clone the repository
 git clone https://github.com/vhvplatform/flutter-framework.git
@@ -92,6 +94,27 @@ Or using Makefile:
 ```bash
 make setup      # Run setup
 make run-app1   # Run app1
+```
+
+**Windows:**
+
+PowerShell:
+```powershell
+# 1. Clone the repository
+git clone https://github.com/vhvplatform/flutter-framework.git
+cd flutter-framework
+
+# 2. Run automated setup
+.\setup.ps1
+
+# 3. Run an example app
+cd apps\app1
+flutter run
+```
+
+Command Prompt:
+```cmd
+setup.bat
 ```
 
 The setup script will automatically:

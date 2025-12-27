@@ -93,7 +93,12 @@ function Main {
             Write-Success "Melos installed successfully"
             
             # Check if pub-cache/bin is in PATH
-            $pubCacheBin = "$env:LOCALAPPDATA\Pub\Cache\bin"
+            # Try to get actual pub cache directory
+            $pubCacheBin = "$env:USERPROFILE\.pub-cache\bin"
+            if (Test-Path "$env:APPDATA\Pub\Cache\bin") {
+                $pubCacheBin = "$env:APPDATA\Pub\Cache\bin"
+            }
+            
             if ($env:PATH -notlike "*$pubCacheBin*") {
                 Write-Warning "Melos installed but not in PATH"
                 Write-Info "Add the following to your PATH:"
@@ -146,8 +151,11 @@ function Main {
     Write-Header "Step 4: Code Generation (Optional)"
     Write-Info "Checking if code generation is needed..."
     
-    $hasBuildRunner = Get-ChildItem -Path "packages","apps" -Recurse -Filter "pubspec.yaml" | 
-                      Select-String -Pattern "build_runner" -Quiet
+    $hasBuildRunner = $false
+    if ((Test-Path "packages") -and (Test-Path "apps")) {
+        $hasBuildRunner = Get-ChildItem -Path "packages","apps" -Recurse -Filter "pubspec.yaml" -ErrorAction SilentlyContinue | 
+                          Select-String -Pattern "build_runner" -Quiet
+    }
     
     if ($hasBuildRunner) {
         Write-Info "Running code generation..."

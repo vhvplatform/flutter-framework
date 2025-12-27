@@ -41,11 +41,14 @@ command_exists() {
 }
 
 check_version() {
-    local required_version=$1
-    local actual_version=$2
+    local required=$1
+    local actual=$2
     
-    # Simple version comparison (assumes format X.Y.Z)
-    if [[ "$actual_version" == "$required_version" ]] || [[ "$actual_version" > "$required_version" ]]; then
+    # Extract major version and compare
+    local required_major=$(echo "$required" | cut -d. -f1)
+    local actual_major=$(echo "$actual" | cut -d. -f1)
+    
+    if [ "$actual_major" -ge "$required_major" ]; then
         return 0
     else
         return 1
@@ -65,7 +68,7 @@ main() {
         print_success "Flutter installed: version $FLUTTER_VERSION"
         
         # Check minimum version (3.0.0)
-        if check_version "3.0.0" "$FLUTTER_VERSION" || [[ "$FLUTTER_VERSION" =~ ^3\. ]]; then
+        if check_version "3" "$FLUTTER_VERSION"; then
             print_success "Flutter version meets minimum requirement (≥3.0.0)"
         else
             print_warning "Flutter version is below 3.0.0. Please upgrade."
@@ -86,7 +89,7 @@ main() {
         print_success "Dart installed: version $DART_VERSION"
         
         # Check minimum version (3.0.0)
-        if [[ "$DART_VERSION" =~ ^3\. ]] || [[ "$DART_VERSION" > "3.0.0" ]]; then
+        if check_version "3" "$DART_VERSION"; then
             print_success "Dart version meets minimum requirement (≥3.0.0)"
         else
             print_warning "Dart version is below 3.0.0. Please upgrade Flutter."
@@ -127,14 +130,24 @@ main() {
     
     echo ""
     
-    # Check if pub-cache/bin is in PATH
-    if [[ ":$PATH:" == *":$HOME/.pub-cache/bin:"* ]]; then
-        print_success "Pub cache bin directory is in PATH"
-    else
-        print_warning "Pub cache bin directory is NOT in PATH"
-        print_info "Add to your shell profile (~/.bashrc, ~/.zshrc, etc.):"
-        print_info "  export PATH=\"\$PATH:\$HOME/.pub-cache/bin\""
-        warnings=$((warnings + 1))
+    # Check if pub-cache/bin is in PATH (only if Melos is installed)
+    if command_exists melos; then
+        # Get actual pub cache directory
+        local pub_cache_bin="$HOME/.pub-cache/bin"
+        if command_exists dart; then
+            # Try to get the actual pub cache path
+            local cache_dir=$(dart pub cache dir 2>/dev/null || echo "$HOME/.pub-cache")
+            pub_cache_bin="$cache_dir/bin"
+        fi
+        
+        if [[ ":$PATH:" == *":$pub_cache_bin:"* ]]; then
+            print_success "Pub cache bin directory is in PATH"
+        else
+            print_warning "Pub cache bin directory might not be in PATH"
+            print_info "If you encounter 'melos: command not found', add to your shell profile:"
+            print_info "  export PATH=\"\$PATH:$pub_cache_bin\""
+            warnings=$((warnings + 1))
+        fi
     fi
     
     echo ""

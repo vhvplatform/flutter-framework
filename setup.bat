@@ -121,14 +121,22 @@ echo ===================================================
 echo Checking if code generation is needed...
 echo.
 
-findstr /s /i "build_runner" packages\*\pubspec.yaml apps\*\pubspec.yaml >nul 2>&1
-if %errorlevel% equ 0 (
-    echo Running code generation...
-    call melos generate 2>nul
-    if !errorlevel! equ 0 (
-        echo [OK] Code generation completed
+if exist packages (
+    if exist apps (
+        findstr /s /i "build_runner" packages\*\pubspec.yaml apps\*\pubspec.yaml >nul 2>&1
+        if !errorlevel! equ 0 (
+            echo Running code generation...
+            call melos generate 2>nul
+            if !errorlevel! equ 0 (
+                echo [OK] Code generation completed
+            ) else (
+                echo [WARNING] Code generation skipped (no packages require it or command not available)
+            )
+        ) else (
+            echo No code generation needed
+        )
     ) else (
-        echo [WARNING] Code generation skipped (no packages require it or command not available)
+        echo No code generation needed
     )
 ) else (
     echo No code generation needed

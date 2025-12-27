@@ -6,6 +6,9 @@ help:
 	@echo "Flutter Framework - Available Commands"
 	@echo "======================================="
 	@echo ""
+	@echo "NOTE: This Makefile is designed for Linux/macOS."
+	@echo "Windows users should use setup.ps1 or setup.bat directly."
+	@echo ""
 	@echo "Setup & Installation:"
 	@echo "  make setup          - Run automated setup script (recommended for first time)"
 	@echo "  make bootstrap      - Install dependencies for all packages"
@@ -34,9 +37,14 @@ help:
 	@echo "For more information, see SETUP.md and Readme.md"
 	@echo ""
 
-# Initial setup - run setup script
+# Initial setup - run setup script (Linux/macOS only)
 setup:
-	@./setup.sh
+	@if [ -f "./setup.sh" ]; then \
+		./setup.sh; \
+	else \
+		echo "Error: setup.sh not found. Are you in the project root?"; \
+		exit 1; \
+	fi
 
 # Bootstrap all packages (install dependencies and link local packages)
 bootstrap:

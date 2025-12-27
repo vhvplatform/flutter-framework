@@ -37,12 +37,9 @@ class LRUCache<K, V> {
       expiresAt: ttl != null ? DateTime.now().add(ttl) : null,
     );
 
-    // Evict if over size - more efficient than while loop
-    if (_cache.length > maxSize) {
-      final keysToRemove = _cache.keys.take(_cache.length - maxSize).toList();
-      for (final key in keysToRemove) {
-        _cache.remove(key);
-      }
+    // Evict if over size - use while loop for memory efficiency
+    while (_cache.length > maxSize) {
+      _cache.remove(_cache.keys.first);
     }
   }
 

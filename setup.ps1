@@ -168,7 +168,7 @@ function Main {
     Write-Info "Checking if code generation is needed..."
     
     $hasBuildRunner = $false
-    if ((Test-Path "packages") -or (Test-Path "apps")) {
+    if ((Test-Path "packages") -and (Test-Path "apps")) {
         try {
             $hasBuildRunner = Get-ChildItem -Path "packages","apps" -Recurse -Filter "pubspec.yaml" -ErrorAction SilentlyContinue | 
                               ForEach-Object { Select-String -Path $_.FullName -Pattern "build_runner" -Quiet } | 

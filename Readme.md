@@ -569,11 +569,16 @@ flutter build web
 
 ## 🤝 Contributing
 
+We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
+
+Quick start for contributors:
+
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+3. Make your changes and test them (`make analyze && make test`)
+4. Commit your changes (`git commit -m 'Add amazing feature'`)
+5. Push to the branch (`git push origin feature/amazing-feature`)
+6. Open a Pull Request
 
 ## 📄 License
 
@@ -583,6 +588,7 @@ This project is licensed under the MIT License.
 
 - **[QUICKSTART.md](QUICKSTART.md)** - Quick start guide for beginners (start here!)
 - **[SETUP.md](SETUP.md)** - Complete setup and installation guide
+- **[CONTRIBUTING.md](CONTRIBUTING.md)** - How to contribute to this project
 - **[Readme.md](Readme.md)** - This file - framework overview
 - **[UI_KIT_GUIDE.md](UI_KIT_GUIDE.md)** - Complete UI components guide with 25+ widgets and examples
 - **[DEV_GUIDE.md](DEV_GUIDE.md)** - Developer guide for easier development

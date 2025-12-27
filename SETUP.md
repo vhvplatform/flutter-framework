@@ -2,14 +2,91 @@
 
 This guide will help you set up and run the Flutter SaaS Framework.
 
-## Prerequisites
+## 🚀 Quick Start (Recommended)
+
+**For the fastest setup experience**, use our automated setup script:
+
+### Linux / macOS
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/vhvplatform/flutter-framework.git
+cd flutter-framework
+
+# 2. Verify prerequisites (optional but recommended)
+./verify-prerequisites.sh
+
+# 3. Run automated setup
+./setup.sh
+
+# 4. Run an example app
+cd apps/app1
+flutter run
+```
+
+**OR** use Makefile shortcuts (requires make):
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/vhvplatform/flutter-framework.git
+cd flutter-framework
+
+# 2. Run setup
+make setup
+
+# 3. Run an example app
+make run-app1
+```
+
+### Windows
+
+**Option 1: PowerShell (Recommended)**
+
+```powershell
+# 1. Clone the repository
+git clone https://github.com/vhvplatform/flutter-framework.git
+cd flutter-framework
+
+# 2. Run automated setup
+.\setup.ps1
+
+# 3. Run an example app
+cd apps\app1
+flutter run
+```
+
+**Option 2: Command Prompt**
+
+```cmd
+# 1. Clone the repository
+git clone https://github.com/vhvplatform/flutter-framework.git
+cd flutter-framework
+
+# 2. Run automated setup
+setup.bat
+
+# 3. Run an example app
+cd apps\app1
+flutter run
+```
+
+The automated setup script will:
+- ✓ Check all prerequisites (Flutter, Dart, Git, Melos)
+- ✓ Install missing tools (like Melos)
+- ✓ Bootstrap all packages
+- ✓ Run code generation if needed
+- ✓ Verify the installation
+
+---
+
+## 📋 Prerequisites
 
 Before you begin, ensure you have the following installed:
 
 - **Flutter SDK** 3.0.0 or higher
 - **Dart SDK** 3.0.0 or higher
-- **Melos** for monorepo management
 - **Git** for version control
+- **Melos** for monorepo management (will be auto-installed by setup script)
 
 ### Install Flutter
 
@@ -17,21 +94,31 @@ Before you begin, ensure you have the following installed:
 2. Add Flutter to your PATH
 3. Run `flutter doctor` to verify installation
 
-### Install Melos
+### Install Melos (Optional - Auto-installed)
 
 ```bash
 dart pub global activate melos
 ```
 
-Make sure the pub cache bin directory is in your PATH.
+Make sure the pub cache bin directory is in your PATH:
 
-## Quick Start
+```bash
+export PATH="$PATH:$HOME/.pub-cache/bin"
+```
+
+Add this to your shell profile (~/.bashrc, ~/.zshrc, etc.) to make it permanent.
+
+---
+
+## 🔧 Manual Setup
+
+If you prefer to set up manually without using the automated script:
 
 ### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/vhvplatform/flutter-framework.git
-cd saas-framework-flutter
+cd flutter-framework
 ```
 
 ### 2. Bootstrap the Project
@@ -47,9 +134,9 @@ This command will:
 - Link local package dependencies
 - Generate necessary files
 
-### 3. Generate Code
+### 3. Generate Code (Optional)
 
-Generate JSON serialization code:
+Generate JSON serialization code if packages use build_runner:
 
 ```bash
 melos generate
@@ -63,7 +150,7 @@ Run analysis to check for any issues:
 melos analyze
 ```
 
-### 5. Run Tests
+### 5. Run Tests (Optional)
 
 ```bash
 melos test
@@ -203,6 +290,39 @@ melos bootstrap
 ```
 
 ## Common Commands
+
+### Using Makefile (Recommended)
+
+For convenience, use the provided Makefile shortcuts:
+
+```bash
+# Show all available commands
+make help
+
+# Setup and installation
+make setup          # Run automated setup (first time)
+make bootstrap      # Install dependencies
+make install        # Alias for bootstrap
+
+# Development
+make run-app1       # Run app1
+make run-app2       # Run app2
+make analyze        # Run code analysis
+make format         # Format code
+make test           # Run tests
+make generate       # Run code generation
+
+# Maintenance
+make clean          # Clean all packages
+make get            # Get dependencies
+make upgrade        # Upgrade dependencies
+make outdated       # Check for outdated packages
+
+# Diagnostics
+make doctor         # Run flutter doctor
+```
+
+### Using Melos Directly
 
 ```bash
 # Install dependencies

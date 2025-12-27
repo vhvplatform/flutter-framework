@@ -41,17 +41,16 @@ class MemoryManager {
   }
 
   void _checkTrackedObjects() {
-    final alive = _trackedObjects.where((ref) => ref.target != null).length;
-    final dead = _trackedObjects.length - alive;
-
-    if (dead > 0) {
+    // Remove dead references first to get accurate count
+    _trackedObjects.removeWhere((ref) => ref.target == null);
+    
+    final alive = _trackedObjects.length;
+    
+    if (alive > 0) {
       AppLogger.instance.info(
-        'GC Check: $alive alive, $dead collected',
+        'Memory tracking: $alive objects still alive',
       );
     }
-
-    // Remove dead references
-    _trackedObjects.removeWhere((ref) => ref.target == null);
   }
 
   /// Force garbage collection (debug only)

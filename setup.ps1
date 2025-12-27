@@ -3,6 +3,7 @@
 
 # Enable strict mode
 $ErrorActionPreference = "Stop"
+$ProgressPreference = 'SilentlyContinue'  # Speed up downloads
 
 # Colors for output
 function Write-Info($message) {
@@ -53,8 +54,13 @@ function Main {
     
     # Check Flutter
     if (Test-CommandExists "flutter") {
-        $flutterVersion = (flutter --version 2>&1 | Select-String -Pattern "Flutter" | Select-Object -First 1).ToString().Split()[1]
-        Write-Success "Flutter is installed (version: $flutterVersion)"
+        try {
+            $flutterOutput = flutter --version 2>&1 | Select-Object -First 1
+            $flutterVersion = if ($flutterOutput -match "Flutter (\S+)") { $matches[1] } else { "unknown" }
+            Write-Success "Flutter is installed (version: $flutterVersion)"
+        } catch {
+            Write-Warning "Flutter is installed but version check failed"
+        }
     } else {
         Write-Error "Flutter is not installed"
         Write-Info "Please install Flutter from: https://flutter.dev/docs/get-started/install"
@@ -63,8 +69,13 @@ function Main {
     
     # Check Dart
     if (Test-CommandExists "dart") {
-        $dartVersion = (dart --version 2>&1 | Select-String -Pattern "Dart SDK version:").ToString().Split()[3]
-        Write-Success "Dart is installed (version: $dartVersion)"
+        try {
+            $dartOutput = dart --version 2>&1
+            $dartVersion = if ($dartOutput -match "(\d+\.\d+\.\d+)") { $matches[1] } else { "unknown" }
+            Write-Success "Dart is installed (version: $dartVersion)"
+        } catch {
+            Write-Warning "Dart is installed but version check failed"
+        }
     } else {
         Write-Error "Dart is not installed"
         Write-Info "Dart should come with Flutter. Please check your Flutter installation."
@@ -73,8 +84,13 @@ function Main {
     
     # Check Git
     if (Test-CommandExists "git") {
-        $gitVersion = (git --version).ToString().Split()[2]
-        Write-Success "Git is installed (version: $gitVersion)"
+        try {
+            $gitOutput = git --version
+            $gitVersion = if ($gitOutput -match "(\d+\.\d+\.\d+)") { $matches[1] } else { "unknown" }
+            Write-Success "Git is installed (version: $gitVersion)"
+        } catch {
+            Write-Warning "Git is installed but version check failed"
+        }
     } else {
         Write-Error "Git is not installed"
         Write-Info "Please install Git from: https://git-scm.com/downloads"
@@ -153,8 +169,14 @@ function Main {
     
     $hasBuildRunner = $false
     if ((Test-Path "packages") -and (Test-Path "apps")) {
-        $hasBuildRunner = Get-ChildItem -Path "packages","apps" -Recurse -Filter "pubspec.yaml" -ErrorAction SilentlyContinue | 
-                          Select-String -Pattern "build_runner" -Quiet
+        try {
+            $hasBuildRunner = Get-ChildItem -Path "packages","apps" -Recurse -Filter "pubspec.yaml" -ErrorAction SilentlyContinue | 
+                              ForEach-Object { Select-String -Path $_.FullName -Pattern "build_runner" -Quiet } | 
+                              Where-Object { $_ -eq $true } | 
+                              Select-Object -First 1
+        } catch {
+            # Silently continue if paths don't exist
+        }
     }
     
     if ($hasBuildRunner) {

@@ -18,6 +18,7 @@ class FrameRateMonitor {
   DateTime? _lastFrameTime;
   bool _isMonitoring = false;
   Timer? _reportTimer;
+  static const int _maxFrameSamples = 60; // Limit memory usage
 
   /// Start monitoring frame rate
   void startMonitoring({
@@ -41,6 +42,7 @@ class FrameRateMonitor {
     _isMonitoring = false;
     _reportTimer?.cancel();
     _reportTimer = null;
+    _frameDurations.clear();
   }
 
   void _onFrame(Duration timestamp) {
@@ -51,13 +53,14 @@ class FrameRateMonitor {
       final frameDuration = now.difference(_lastFrameTime!);
       _frameDurations.add(frameDuration);
 
-      // Keep only last 60 frames (1 second at 60fps)
-      if (_frameDurations.length > 60) {
+      // Keep only last N frames to prevent memory bloat
+      if (_frameDurations.length > _maxFrameSamples) {
         _frameDurations.removeAt(0);
       }
 
       // Detect jank (frame took > 16.67ms for 60fps)
-      if (frameDuration.inMilliseconds > 16) {
+      // Only log occasionally to avoid log spam
+      if (frameDuration.inMilliseconds > 16 && _frameDurations.length % 10 == 0) {
         AppLogger.instance.warning(
           'Frame jank detected',
           context: {

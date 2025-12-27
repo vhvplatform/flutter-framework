@@ -16,6 +16,9 @@ class PerformanceMonitor {
 
   final Map<String, DateTime> _startTimes = {};
   final Map<String, List<Duration>> _metrics = {};
+  
+  /// Maximum metrics to keep per operation (configurable)
+  int maxMetricsPerOperation = 100;
 
   /// Start timing an operation
   void startTimer(String operation) {
@@ -35,8 +38,14 @@ class PerformanceMonitor {
     final duration = DateTime.now().difference(startTime);
     _startTimes.remove(operation);
 
-    // Store metric
-    _metrics.putIfAbsent(operation, () => []).add(duration);
+    // Store metric with size limit to prevent memory bloat
+    final metrics = _metrics.putIfAbsent(operation, () => []);
+    metrics.add(duration);
+    
+    // Keep only recent metrics to avoid unbounded memory growth
+    if (metrics.length > maxMetricsPerOperation) {
+      metrics.removeAt(0);
+    }
 
     // Log if operation took too long (> 100ms)
     if (duration.inMilliseconds > 100) {

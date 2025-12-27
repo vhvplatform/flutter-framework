@@ -190,11 +190,7 @@ class OptimizedListView extends StatelessWidget {
       addAutomaticKeepAlives: addAutomaticKeepAlives,
       addRepaintBoundaries: addRepaintBoundaries,
       addSemanticIndexes: addSemanticIndexes,
-      itemBuilder: (context, index) {
-        return RepaintBoundary(
-          child: itemBuilder(context, index),
-        );
-      },
+      itemBuilder: itemBuilder,
     );
   }
 }

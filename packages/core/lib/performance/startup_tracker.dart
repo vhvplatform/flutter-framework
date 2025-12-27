@@ -108,6 +108,8 @@ class StartupTracker {
 
 /// Common startup milestones
 class StartupMilestones {
+  const StartupMilestones._();
+  
   static const String appStart = 'app_start';
   static const String configLoaded = 'config_loaded';
   static const String diInitialized = 'di_initialized';

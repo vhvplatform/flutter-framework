@@ -4,6 +4,7 @@
 # This script checks if all required tools are installed and properly configured
 
 set -e
+set -o pipefail
 
 # Colors for output
 RED='\033[0;31m'
@@ -44,11 +45,16 @@ check_version() {
     local required=$1
     local actual=$2
     
+    # More robust version comparison
+    if [ -z "$actual" ] || [ "$actual" = "unknown" ]; then
+        return 1
+    fi
+    
     # Extract major version and compare
     local required_major=$(echo "$required" | cut -d. -f1)
     local actual_major=$(echo "$actual" | cut -d. -f1)
     
-    if [ "$actual_major" -ge "$required_major" ]; then
+    if [ "$actual_major" -ge "$required_major" ] 2>/dev/null; then
         return 0
     else
         return 1
@@ -64,7 +70,7 @@ main() {
     # Check Flutter
     print_info "Checking Flutter..."
     if command_exists flutter; then
-        FLUTTER_VERSION=$(flutter --version 2>&1 | head -n 1 | cut -d ' ' -f 2)
+        FLUTTER_VERSION=$(flutter --version 2>&1 | head -n 1 | awk '{print $2}')
         print_success "Flutter installed: version $FLUTTER_VERSION"
         
         # Check minimum version (3.0.0)
@@ -85,7 +91,7 @@ main() {
     # Check Dart
     print_info "Checking Dart..."
     if command_exists dart; then
-        DART_VERSION=$(dart --version 2>&1 | sed -n 's/.*Dart SDK version: \([0-9.]*\).*/\1/p' || echo "unknown")
+        DART_VERSION=$(dart --version 2>&1 | awk '{for(i=1;i<=NF;i++) if($i~/[0-9]+\.[0-9]+\.[0-9]+/) print $i}' | head -n 1)
         print_success "Dart installed: version $DART_VERSION"
         
         # Check minimum version (3.0.0)
@@ -106,7 +112,7 @@ main() {
     # Check Git
     print_info "Checking Git..."
     if command_exists git; then
-        GIT_VERSION=$(git --version | cut -d ' ' -f 3)
+        GIT_VERSION=$(git --version | awk '{print $3}')
         print_success "Git installed: version $GIT_VERSION"
     else
         print_error "Git is NOT installed"
@@ -119,7 +125,7 @@ main() {
     # Check Melos
     print_info "Checking Melos..."
     if command_exists melos; then
-        MELOS_VERSION=$(melos --version 2>&1 | sed -n 's/.*\([0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\).*/\1/p' | head -n 1 || echo "unknown")
+        MELOS_VERSION=$(melos --version 2>&1 | awk '{for(i=1;i<=NF;i++) if($i~/[0-9]+\.[0-9]+\.[0-9]+/) print $i}' | head -n 1)
         print_success "Melos installed: version $MELOS_VERSION"
     else
         print_error "Melos is NOT installed"

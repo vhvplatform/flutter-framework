@@ -109,10 +109,17 @@ class _IsolateWorker<Q, R> {
     receivePort.listen((message) {
       if (message is SendPort) {
         completer.complete(message);
-      } else if (message is List && message.length == 2) {
+      } else if (message is List && message.length >= 2) {
         final id = message[0] as int;
-        final result = message[1] as R;
-        _completerMap[id]?.complete(result);
+        final result = message[1] as R?;
+        
+        // Check if error information is included
+        if (message.length > 2 && result == null) {
+          final error = message[2];
+          _completerMap[id]?.completeError(error);
+        } else {
+          _completerMap[id]?.complete(result as R);
+        }
         _completerMap.remove(id);
       }
     });
@@ -135,8 +142,10 @@ class _IsolateWorker<Q, R> {
         try {
           final result = callback(data);
           sendPort.send([id, result]);
-        } catch (e) {
-          sendPort.send([id, null]);
+        } catch (e, stackTrace) {
+          // Send error information back (limit stack trace to 10 frames)
+          final limitedStack = stackTrace.toString().split('\n').take(10).join('\n');
+          sendPort.send([id, null, e.toString(), limitedStack]);
         }
       }
     });
@@ -146,6 +155,13 @@ class _IsolateWorker<Q, R> {
     _isolate?.kill(priority: Isolate.immediate);
     _isolate = null;
     _sendPort = null;
+    
+    // Complete any pending operations with error
+    for (final completer in _completerMap.values) {
+      if (!completer.isCompleted) {
+        completer.completeError('Isolate disposed');
+      }
+    }
     _completerMap.clear();
   }
 }

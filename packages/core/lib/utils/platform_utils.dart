@@ -212,11 +212,32 @@ class DeviceCapabilities {
     return 'medium';
   }
 
-  /// Get recommended settings for device tier
-  static DeviceSettings getRecommendedSettings() {
-    final tier = estimatePerformanceTier();
+  /// Estimate performance tier with runtime benchmarking
+  /// This performs a quick computation benchmark to estimate device capability
+  static Future<String> estimatePerformanceTierWithBenchmark() async {
+    // Quick benchmark: measure simple computation time
+    final startTime = DateTime.now();
+    var sum = 0;
+    for (var i = 0; i < 1000000; i++) {
+      sum += i;
+    }
+    final duration = DateTime.now().difference(startTime);
 
-    switch (tier) {
+    // Classify based on benchmark
+    if (duration.inMilliseconds < 10) {
+      return 'high'; // Fast device
+    } else if (duration.inMilliseconds < 30) {
+      return 'medium'; // Average device
+    } else {
+      return 'low'; // Slower/older device
+    }
+  }
+
+  /// Get recommended settings for device tier
+  static DeviceSettings getRecommendedSettings({String? tier}) {
+    final deviceTier = tier ?? estimatePerformanceTier();
+
+    switch (deviceTier) {
       case 'high':
         return const DeviceSettings(
           enableAnimations: true,
@@ -224,6 +245,8 @@ class DeviceCapabilities {
           enableBlur: true,
           maxConcurrentOperations: 4,
           useHighQualityImages: true,
+          reducedMotion: false,
+          simplifiedUI: false,
         );
       case 'medium':
         return const DeviceSettings(
@@ -232,6 +255,8 @@ class DeviceCapabilities {
           enableBlur: false,
           maxConcurrentOperations: 2,
           useHighQualityImages: true,
+          reducedMotion: false,
+          simplifiedUI: false,
         );
       case 'low':
         return const DeviceSettings(
@@ -240,6 +265,8 @@ class DeviceCapabilities {
           enableBlur: false,
           maxConcurrentOperations: 1,
           useHighQualityImages: false,
+          reducedMotion: true,
+          simplifiedUI: true,
         );
       default:
         return const DeviceSettings(
@@ -248,8 +275,16 @@ class DeviceCapabilities {
           enableBlur: false,
           maxConcurrentOperations: 2,
           useHighQualityImages: true,
+          reducedMotion: false,
+          simplifiedUI: false,
         );
     }
+  }
+
+  /// Get recommended settings asynchronously with benchmarking
+  static Future<DeviceSettings> getRecommendedSettingsAsync() async {
+    final tier = await estimatePerformanceTierWithBenchmark();
+    return getRecommendedSettings(tier: tier);
   }
 }
 
@@ -262,6 +297,8 @@ class DeviceSettings {
     required this.enableBlur,
     required this.maxConcurrentOperations,
     required this.useHighQualityImages,
+    required this.reducedMotion,
+    required this.simplifiedUI,
   });
 
   /// Whether to enable animations
@@ -278,4 +315,24 @@ class DeviceSettings {
 
   /// Whether to use high quality images
   final bool useHighQualityImages;
+
+  /// Whether to use reduced motion (for older devices)
+  final bool reducedMotion;
+
+  /// Whether to use simplified UI (less visual complexity)
+  final bool simplifiedUI;
+
+  /// Get animation duration multiplier based on settings
+  double get animationDurationMultiplier {
+    if (!enableAnimations) return 0.0;
+    if (reducedMotion) return 0.5;
+    return 1.0;
+  }
+
+  /// Get image quality factor (0.5 to 1.0)
+  double get imageQualityFactor {
+    if (!useHighQualityImages) return 0.5;
+    if (simplifiedUI) return 0.7;
+    return 1.0;
+  }
 }

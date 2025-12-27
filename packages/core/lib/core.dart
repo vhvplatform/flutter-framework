@@ -46,6 +46,7 @@ export 'performance/startup_tracker.dart';
 export 'performance/network_batcher.dart';
 export 'performance/advanced_cache.dart';
 export 'performance/performance_utils.dart';
+export 'performance/legacy_support.dart';
 
 // Developer Tools
 export 'dev_tools/error_boundary.dart';

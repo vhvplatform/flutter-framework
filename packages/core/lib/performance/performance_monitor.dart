@@ -16,7 +16,9 @@ class PerformanceMonitor {
 
   final Map<String, DateTime> _startTimes = {};
   final Map<String, List<Duration>> _metrics = {};
-  static const int _maxMetricsPerOperation = 100; // Limit memory usage
+  
+  /// Maximum metrics to keep per operation (configurable)
+  int maxMetricsPerOperation = 100;
 
   /// Start timing an operation
   void startTimer(String operation) {
@@ -41,7 +43,7 @@ class PerformanceMonitor {
     metrics.add(duration);
     
     // Keep only recent metrics to avoid unbounded memory growth
-    if (metrics.length > _maxMetricsPerOperation) {
+    if (metrics.length > maxMetricsPerOperation) {
       metrics.removeAt(0);
     }
 

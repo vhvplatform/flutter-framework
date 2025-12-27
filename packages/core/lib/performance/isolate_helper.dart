@@ -143,8 +143,9 @@ class _IsolateWorker<Q, R> {
           final result = callback(data);
           sendPort.send([id, result]);
         } catch (e, stackTrace) {
-          // Send error information back
-          sendPort.send([id, null, e.toString(), stackTrace.toString()]);
+          // Send error information back (limit stack trace to 10 frames)
+          final limitedStack = stackTrace.toString().split('\n').take(10).join('\n');
+          sendPort.send([id, null, e.toString(), limitedStack]);
         }
       }
     });

@@ -7,9 +7,14 @@ import 'dart:collection';
 /// LRU (Least Recently Used) Cache
 class LRUCache<K, V> {
   /// Creates an LRU cache
-  LRUCache({required this.maxSize}) : assert(maxSize > 0, 'Cache size must be positive');
+  /// 
+  /// [maxSize] specifies the maximum number of entries (not bytes) allowed in cache
+  LRUCache({required this.maxSize}) : assert(
+    maxSize > 0, 
+    'Cache size must be positive (maxSize represents maximum number of entries)',
+  );
 
-  /// Maximum cache size
+  /// Maximum cache size (number of entries)
   final int maxSize;
 
   final _cache = LinkedHashMap<K, _CacheEntry<V>>();

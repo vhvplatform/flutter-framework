@@ -65,10 +65,12 @@ class PlatformUtils {
   }
 
   /// Get recommended number of isolates for platform
+  /// Note: Actual optimal count may vary based on device capabilities
   static int get recommendedIsolateCount {
     if (isWeb) return 0; // Web doesn't support isolates
-    if (isMobile) return 2; // Limited CPU cores on mobile
-    return 4; // More CPU cores on desktop
+    if (isMobile) return 2; // Conservative default for mobile
+    return 4; // Conservative default for desktop
+    // TODO: Consider using Platform.numberOfProcessors when available
   }
 
   /// Check if platform benefits from aggressive caching

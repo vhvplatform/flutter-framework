@@ -2,6 +2,8 @@
 
 A complete Flutter framework for building multiple SaaS applications with a modular architecture, multi-tenancy support, and seamless integration with the Go backend (saas-framework-go).
 
+> **🚀 New to this framework?** Check out [QUICKSTART.md](QUICKSTART.md) for a beginner-friendly guide!
+
 ## 🚀 Features
 
 - **Monorepo Architecture**: Manage multiple packages and apps efficiently with Melos
@@ -63,42 +65,82 @@ flutter-framework/
 
 - **Flutter SDK**: 3.0.0 or higher
 - **Dart SDK**: 3.0.0 or higher
-- **Melos**: For monorepo management
-
-### Install Melos
-
-```bash
-dart pub global activate melos
-```
+- **Git**: For version control
+- **Melos**: For monorepo management (can be auto-installed)
 
 ## 🚦 Quick Start
 
-### 1. Clone the Repository
+### Automated Setup (Recommended)
+
+The fastest way to get started:
 
 ```bash
+# 1. Clone the repository
 git clone https://github.com/vhvplatform/flutter-framework.git
-cd saas-framework-flutter
-```
+cd flutter-framework
 
-### 2. Bootstrap the Project
+# 2. Run automated setup
+./setup.sh
 
-```bash
-melos bootstrap
-```
-
-This will:
-- Install dependencies for all packages
-- Link local package dependencies
-- Generate necessary files
-
-### 3. Run an Example App
-
-```bash
+# 3. Run an example app
 cd apps/app1
 flutter run
 ```
 
-## 📝 Available Melos Commands
+Or using Makefile:
+
+```bash
+make setup      # Run setup
+make run-app1   # Run app1
+```
+
+The setup script will automatically:
+- ✓ Check prerequisites
+- ✓ Install Melos if missing
+- ✓ Bootstrap all packages
+- ✓ Run code generation
+- ✓ Verify the installation
+
+### Manual Setup
+
+If you prefer manual setup:
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/vhvplatform/flutter-framework.git
+cd flutter-framework
+
+# 2. Install Melos (if not already installed)
+dart pub global activate melos
+
+# 3. Bootstrap the project
+melos bootstrap
+
+# 4. Run an example app
+cd apps/app1
+flutter run
+```
+
+## 📝 Available Commands
+
+### Makefile Commands (Recommended)
+
+```bash
+make help          # Show all available commands
+make setup         # Run automated setup
+make bootstrap     # Install dependencies
+make run-app1      # Run app1
+make run-app2      # Run app2
+make analyze       # Analyze all packages
+make format        # Format all Dart files
+make test          # Run tests for all packages
+make clean         # Clean all packages
+make build         # Build all apps
+make generate      # Generate code
+make doctor        # Run flutter doctor
+```
+
+### Melos Commands
 
 ```bash
 # Install dependencies for all packages
@@ -516,7 +558,9 @@ This project is licensed under the MIT License.
 
 ## 📚 Documentation
 
+- **[QUICKSTART.md](QUICKSTART.md)** - Quick start guide for beginners (start here!)
 - **[SETUP.md](SETUP.md)** - Complete setup and installation guide
+- **[Readme.md](Readme.md)** - This file - framework overview
 - **[UI_KIT_GUIDE.md](UI_KIT_GUIDE.md)** - Complete UI components guide with 25+ widgets and examples
 - **[DEV_GUIDE.md](DEV_GUIDE.md)** - Developer guide for easier development
 - **[FEATURES.md](FEATURES.md)** - New features and enhancements documentation

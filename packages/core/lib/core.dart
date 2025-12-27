@@ -28,6 +28,7 @@ export 'navigation/router.dart';
 // Utilities
 export 'utils/app_logger.dart';
 export 'utils/validators.dart';
+export 'utils/platform_utils.dart';
 
 // Internationalization
 export 'i18n/app_localizations.dart';
@@ -44,6 +45,7 @@ export 'performance/frame_monitor.dart';
 export 'performance/startup_tracker.dart';
 export 'performance/network_batcher.dart';
 export 'performance/advanced_cache.dart';
+export 'performance/performance_utils.dart';
 
 // Developer Tools
 export 'dev_tools/error_boundary.dart';
